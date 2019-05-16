@@ -19,7 +19,7 @@
     <title>mainPage</title>
     <script src="js/jquery-3.1.0.js"></script>
     <% User user = (User) session.getAttribute("u");
-    session.setAttribute("user1",user);%>
+    %>
     <script>
         $(function () {
             $("#addResume").click(function () {
@@ -78,7 +78,7 @@
 </head>
 <body>
 欢迎您!<%out.print(user.getUser_name());%><br>
-<a href="../../userlogin.jsp">返回用户登录</a><a href="../../index.jsp">返回入口</a>
+<a href="backToUserLogin">返回用户登录</a><br/><a href="backToEnter">返回入口</a>
 <hr>
 <%
     List<HiringTable> hiringList = (List<HiringTable>) session.getAttribute("hiringList");
@@ -92,11 +92,11 @@
 %>
 
 <table>
-        <tr><th>职位</th><th>薪资</th><th>福利</th><th>投递</th></tr>
+        <tr><th>职位</th><th>薪资</th><th>福利</th><th>详情</th></tr>
 <%
         for(int i = 0;i<hiringList.size();i++){
 %>
-    <tr><td><%=hiringList.get(i).getHir_pos_id()%></td><td><%="薪资还没加上去"%></td><td><%="福利还没加"%></td><td><button>投递</button></td></tr>
+    <form action="showHiringDetail" method="post"><tr><td hidden><input type="text" name="hir_id" value="<%=hiringList.get(i).getHir_id()%>"><input type="text" name="user_id" value="<%=user.getUser_id()%>"></td><td><%=hiringList.get(i).getHir_pos_id()%></td><td><%="薪资还没加上去"%></td><td><%="福利还没加"%></td><td><input type="submit" value="详情"></td></tr></form>
 <%
         }
     }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iotek.dao.RecruitDao">
+    <insert id="addRecruit">
+        insert into HRM_RECRUIT (REC_ID, REC_HIR_ID, REC_RES_ID) values (RECRUIT_SEQ.nextval,#{rec_hir_id},#{rec_res_id})
+    </insert>
+    <delete id="deleteRecruit">
+        delete from HRM_RECRUIT where REC_ID=#{rec_id}
+    </delete>
+</mapper>

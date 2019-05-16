@@ -26,4 +26,11 @@ public class UserServiceImpl implements UserService {
         }
         return false;
     }
+
+    public User getUserById(Integer user_id) {
+        if(user_id!=null){
+            return userDao.getUserById(user_id);
+        }
+        return null;
+    }
 }

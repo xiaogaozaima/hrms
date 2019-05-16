@@ -13,45 +13,6 @@
        http://www.springframework.org/schema/aop
        http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <!--<context:property-placeholder location="classpath:oracle.properties"/>
-    &lt;!&ndash;数据源&ndash;&gt;
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="${jdbc.driver}"/>
-        <property name="url" value="${jdbc.url}"/>
-        <property name="username" value="${jdbc.username}"/>
-        <property name="password" value="${jdbc.password}"/>
-    </bean>
-
-    &lt;!&ndash;sessionFactory&ndash;&gt;
-    <bean id="sessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="mapperLocations" value="classpath:com/iotek/mapper/*.xml"/>
-    </bean>
-
-    &lt;!&ndash;扫描器&ndash;&gt;
-    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.iotek.dao"/>
-        <property name="sqlSessionFactoryBeanName" value="sessionFactory"/>
-    </bean>
-
-    &lt;!&ndash;事务管理器&ndash;&gt;
-    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
-
-    &lt;!&ndash;事务增强&ndash;&gt;
-    <tx:advice transaction-manager="transactionManager" id="interceptor">
-        <tx:attributes>
-            <tx:method name="*"/>
-        </tx:attributes>
-    </tx:advice>
-
-    &lt;!&ndash;aop&ndash;&gt;
-    <aop:config>
-        <aop:pointcut id="pc" expression="execution(* com.iotek.service.*.*(..))"/>
-        <aop:advisor advice-ref="interceptor" pointcut-ref="pc"/>
-    </aop:config>-->
-
     <context:property-placeholder location="classpath:oracle.properties"/>
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="${jdbc.driver}"/>
