@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iotek.dao.PositionDao">
+    <insert id="addPosition">
+        insert into HRM_POSITION (POS_ID, POS_NAME, POS_DEPT_ID) values (#{pos_id},#{pos_name},#{pos_dept_id})
+    </insert>
+    <update id="updatePosition">
+        update HRM_POSITION set POS_NAME=#{pos_name}
+    </update>
+    <delete id="deletePosition">
+        delete from HRM_POSITION where POS_ID=#{pos_id}
+    </delete>
+    <delete id="deletePositionByDept">
+        delete from HRM_POSITION where POS_DEPT_ID=#{dept_id}
+    </delete>
+    <select id="getAllPosition" resultType="com.iotek.model.Position">
+        select * from HRM_POSITION
+    </select>
+    <select id="getPositionById" resultType="com.iotek.model.Position">
+        select * from HRM_POSITION where POS_ID=#{pos_id}
+    </select>
+
+</mapper>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iotek.dao.AdminDao">
+    <insert id="addAdmin">
+        INSERT INTO HRM_ADMIN(ADMIN_ID,ADMIN_NAME,ADMIN_PASSWORD) values (ADMIN_SEQ.nextval,#{admin_name},#{admin_password})
+    </insert>
+
+    <select id="getAdmin" resultType="com.iotek.model.Admin">
+        select * from HRM_ADMIN where ADMIN_NAME=#{admin_name} and ADMIN_PASSWORD=#{admin_password}
+    </select>
+</mapper>
