@@ -52,6 +52,11 @@ public class HiringController {
         Integer hir_id = Integer.parseInt(request.getParameter("hir_id"));
         HiringTable hiring = hiringService.getHiringById(hir_id);
 
+        //不能对一个招聘重复投递简历
+        if(recruitService.getRecruitByResId(resume.getRes_id(),hir_id)!=null){
+            return "error";
+        }
+        //没投递过的可以投递
         Recruit recruit = new Recruit();
         recruit.setRec_hir_id(hir_id);
         recruit.setRec_res_id(resume.getRes_id());

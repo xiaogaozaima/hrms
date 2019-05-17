@@ -25,6 +25,9 @@
     <select id="getResumeByUid" resultType="com.iotek.model.Resume">
         select * from HRM_RESUME where RES_USER_ID=#{user_id}
     </select>
+    <select id="getResumeById" resultType="com.iotek.model.Resume">
+        select * from HRM_RESUME where RES_ID=#{id}
+    </select>
     <!--<select id="getResumeByUid" resultType="com.iotek.model.Resume">
         select * from HRM_RESUME where RES_USER_ID=#{user_id}
     </select>-->

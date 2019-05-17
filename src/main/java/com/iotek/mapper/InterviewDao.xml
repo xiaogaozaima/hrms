@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.iotek.dao.InterviewDao">
+    <!--<insert id="addInterview">
+        insert  into HRM_INTERVIEW (INT_ID, INT_USER_ID, INT_DEPT_ID,
+        INT_POS_ID, INT_TIME, INT_ADDRESS,
+        INT_CONTACT, INT_CONPHONE)
+        values (INTERVIEW_SEQ.nextval,#{int_user_id},#{int_dept_id},
+        #{int_pos_id},#{int_time},#{int_address},
+        #{int_contact},#{int_conphone})
+    </insert>-->
+    <insert id="addInterview">
+        insert  into HRM_INTERVIEW (INT_ID, INT_USER_ID)
+        values (INTERVIEW_SEQ.nextval,#{int_user_id})
+    </insert>
+    <select id="getAllInterview" resultType="com.iotek.model.Interview">
+        select * from HRM_INTERVIEW
+    </select>
 </mapper>

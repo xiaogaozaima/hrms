@@ -7,4 +7,10 @@
     <delete id="deleteRecruit">
         delete from HRM_RECRUIT where REC_ID=#{rec_id}
     </delete>
+    <select id="getRecruitByResId" resultType="com.iotek.model.Recruit">
+        select * from HRM_RECRUIT where REC_RES_ID=#{rec_res_id} and REC_RES_ID=#{hiring}
+    </select>
+    <select id="getAllRecruit" resultType="com.iotek.model.Recruit">
+        select * from HRM_RECRUIT
+    </select>
 </mapper>

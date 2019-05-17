@@ -6,6 +6,7 @@ import com.iotek.service.RecruitService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class RecruitServiceImpl implements RecruitService {
@@ -24,5 +25,16 @@ public class RecruitServiceImpl implements RecruitService {
             return recruitDao.deleteRecruit(recruit);
         }
         return false;
+    }
+
+    public Recruit getRecruitByResId(Integer rec_res_id,Integer hiring) {
+        if(rec_res_id!=null){
+            return recruitDao.getRecruitByResId(rec_res_id,hiring);
+        }
+        return null;
+    }
+
+    public List<Recruit> getAllRecruit() {
+        return recruitDao.getAllRecruit();
     }
 }

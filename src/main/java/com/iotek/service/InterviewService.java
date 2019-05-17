@@ -1,10 +1,11 @@
-package com.iotek.dao;
+package com.iotek.service;
 
 import com.iotek.model.Interview;
 
 import java.util.List;
 
-public interface InterviewDao {
+public interface InterviewService {
     boolean addInterview(Interview interview);
     List<Interview> getAllInterview();
+
 }
