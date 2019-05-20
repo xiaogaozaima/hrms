@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.iotek.dao.HiringTablesDao">
+    <insert id="addHiring">
+        insert into HRM_HIR (HIR_ID, HIR_DEPT_ID, HIR_POS_ID, HIR_DISC)
+        values (HIR_SEQ.nextval,#{hir_dept_id},#{hir_pos_id},#{hir_disc})
+    </insert>
     <select id="getAllHiring" resultType="com.iotek.model.HiringTable">
         select * from HRM_HIR
     </select>

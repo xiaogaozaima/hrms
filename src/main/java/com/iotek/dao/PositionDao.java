@@ -2,6 +2,7 @@ package com.iotek.dao;
 
 import com.iotek.model.Department;
 import com.iotek.model.Position;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -13,4 +14,5 @@ public interface PositionDao {
 
     List<Position> getAllPosition();
     Position getPositionById(Integer pos_id);
+    Position getPositionByName(@Param("pos_name") String pos_name);
 }

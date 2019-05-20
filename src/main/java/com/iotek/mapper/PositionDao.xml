@@ -19,5 +19,8 @@
     <select id="getPositionById" resultType="com.iotek.model.Position">
         select * from HRM_POSITION where POS_ID=#{pos_id}
     </select>
+    <select id="getPositionByName" resultType="com.iotek.model.Position">
+        select * from HRM_POSITION where POS_NAME=#{pos_name}
+    </select>
 
 </mapper>

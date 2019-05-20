@@ -18,5 +18,8 @@
     <select id="getDeptByName" resultType="com.iotek.model.Department">
         select * from HRM_DEPARTMENT where DEPT_NAME=#{dept_name}
     </select>
+    <select id="getDeptId" resultType="com.iotek.model.Department">
+        select * from HRM_DEPARTMENT where DEPT_ID=#{dept_id}
+    </select>
 
 </mapper>

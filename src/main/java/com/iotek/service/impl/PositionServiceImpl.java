@@ -53,4 +53,12 @@ public class PositionServiceImpl implements PositionService {
         }
         return null;
     }
+
+    public Position getPositionByName(String pos_name) {
+        if(pos_name!=null){
+            return positionDao.getPositionByName(pos_name);
+        }
+        return null;
+    }
+
 }

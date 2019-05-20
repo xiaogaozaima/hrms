@@ -23,4 +23,11 @@ public class HiringServiceImpl implements HiringService {
         }
         return null;
     }
+
+    public boolean addHiring(HiringTable hiringTable) {
+        if(hiringTable!=null){
+            return hiringDao.addHiring(hiringTable);
+        }
+        return false;
+    }
 }

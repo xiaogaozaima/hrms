@@ -1,4 +1,6 @@
-<%@ page import="com.iotek.model.Resume" %><%--
+<%@ page import="com.iotek.model.Resume" %>
+<%@ page import="com.iotek.model.HiringTable" %>
+<%@ page import="com.iotek.model.User" %><%--
   Created by IntelliJ IDEA.
   User: xiaogao
   Date: 2019/5/16
@@ -16,9 +18,25 @@
     <title>Title</title>
 </head>
 <body>
+
 <%
     Resume resume = (Resume) session.getAttribute("resume");
+    String dept_name = (String) session.getAttribute("dept_name");
+    String pos_name = (String) session.getAttribute("pos_name");
+    User user = (User) session.getAttribute("user");
 %>
+
+<form action="addInterview" method="post">
+    <table>
+        <tr>面试通知</tr>
+        <tr><td><%=user.getUser_name()%></td><td>特邀您参加本公司的面试</td></tr>
+        <tr><td>应聘职位</td><td>部门<%=dept_name%></td><td>职位<%=pos_name%></td></tr>
+        <tr><td>面试地点</td><td colspan="2"><input type="text" placeholder="请输入面试地点"></td></tr>
+        <tr><td>面试时间</td><td colspan="2"><input type="text" placeholder="请输入面试时间"></td></tr>
+        <tr><td colspan="3"><input type="submit" value="发送面试通知"></td></tr>
+    </table>
+</form>
+<%--
 <form action="addInterview" method="post" >
     <table border="1">
         <tr><td colspan="4" align="center"><input type="text" value="个人简历"></td></tr>
@@ -64,9 +82,10 @@
         </tr>
         <tr>
             <td><input type='hidden' id='r_tid' name='res_user_id' value="<%=resume.getRes_user_id()%>"></td>
-            <td colspan='3' align='center' ><input type='submit' value='邀请面试'></td>
+            <td colspan='3' align='center' ><input type='submit' value='安排面试'></td>
         </tr>
     </table></form>
+--%>
 
 </body>
 </html>

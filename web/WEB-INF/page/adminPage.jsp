@@ -1,8 +1,5 @@
-<%@ page import="com.iotek.model.Admin" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.iotek.model.Recruit" %>
-<%@ page import="com.iotek.model.Resume" %>
-<%@ page import="com.iotek.model.Interview" %><%--
+<%@ page import="com.iotek.model.*" %><%--
   Created by IntelliJ IDEA.
   User: xiaogao
   Date: 2019/5/16
@@ -29,22 +26,52 @@
 欢迎<%=admin.getAdmin_name()%><br/>
 <a href="backToEnter">返回入口</a>
 <hr>
+<a href="toAddDeptPos">添加部门。职位</a>
+<hr>
+<h2>发布简历</h2>
+<form action="addHiring" method="post">
+    <table>
+        <tr><td>招聘部门：</td><td><input type="text" name="dept_name"></td></tr>
+        <tr><td>招聘职位：</td><td><input type="text" name="pos_name"></td></tr>
+        <tr><td>招聘详情：</td><td><input type="text" hir_disc></td></tr>
+        <input type="submit" value="发布招聘信息">
+    </table>
+</form>
+
+<h2>所有简历</h2>
+<%
+    List<HiringTable> hiringTables = (List<HiringTable>) session.getAttribute("hiringTables");
+    if(hiringTables!=null){
+        for(HiringTable h : hiringTables){
+%>
+<h5>
+<%=h%>
+</h5><br/>
+<%
+        }
+    }
+%>
+<hr>
 <h2>接收的简历</h2>
 <table>
     <%
         if(recruitList!=null){
     %>
-    <tr><th>编号</th><th>招聘ID</th><th>简历ID</th><th>简历详情</th><th>邀请面试</th></tr>
+    <tr><th>编号</th><th>招聘ID</th><th>简历ID</th><th>简历详情</th></tr>
         <%
             for(Recruit recruit : recruitList){
         %>
 
+
 <%--
-    <tr><td><%=recruit.getRec_id()%></td><td><%=recruit.getRec_hir_id()%></td><td><form action="" method="post"><%=recruit.getRec_res_id()%><input type="submit" value="简历详情"></form></td></tr>
+    <tr><td><%=recruit.getRec_id()%></td><td><%=recruit.getRec_hir_id()%></td><%=recruit.getRec_res_id()%><td><a>简历详情</a></td></tr>
 --%>
 
 
-    <tr><td><%=recruit.getRec_id()%></td><td><%=recruit.getRec_hir_id()%></td><td><%=recruit.getRec_res_id()%></td><td>点击查看</td><td><a href="beforeInterview?method=<%=recruit.getRec_res_id()%>">邀请面试</a></td></tr>
+
+
+    <tr><td><%=recruit.getRec_id()%></td><td><%=recruit.getRec_hir_id()%></td><td><%=recruit.getRec_res_id()%></td><td><a href="beforeInterview?method=<%=recruit.getRec_res_id()%>&method1=<%=recruit.getRec_hir_id()%>">简历详情</a></td></tr>
+
 
 
     <%

@@ -48,4 +48,11 @@ public class DepartmentServiceImpl implements DepartmentService {
         }
         return null;
     }
+
+    public Department getDeptId(Integer dept_id) {
+        if(dept_id!=null){
+            return departmentDao.getDeptId(dept_id);
+        }
+        return null;
+    }
 }

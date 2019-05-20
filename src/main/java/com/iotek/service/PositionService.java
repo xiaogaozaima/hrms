@@ -13,4 +13,6 @@ public interface PositionService {
 
     List<Position> getAllPosition();
     Position getPositionById(Integer pos_id);
+    Position getPositionByName(String pos_name);
+
 }

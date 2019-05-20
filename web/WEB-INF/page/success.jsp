@@ -23,6 +23,7 @@
     <script>
         $(function () {
             $("#addResume").click(function () {
+                var res_user_id = $(this).next().val();
                 $("body").append(
                     "<form action='addResume' method='post'><table border='1'>" +
                     "<tr><td colspan='4' align='center'><input type='text' value='个人简历'></td></tr>" +
@@ -30,7 +31,7 @@
                         "<td>姓名:</td>" +
                         "<td><input type='text' maxlength='8' placeholder='最多输入八个字符' name='res_name' required style='border: 0px' ></td>" +
                         "<td>性别:</td>" +
-                        "<td><input type='radio' name='res_sex' value='男' required>男<input type='radio' name='r_sex' value='女' required>女</td>" +
+                        "<td><input type='radio' name='res_sex' value='男' required>男<input type='radio' name='res_sex' value='女' required>女</td>" +
                     "</tr>" +
                     "<tr>" +
                         "<td>出生年月日：</td>" +
@@ -67,11 +68,12 @@
                         "<td colspan='4'><input required style='border: 0px' type='text' maxlength='255' placeholder='最多255个字符' name='res_evaluation' required></td>" +
                     "</tr>" +
                     "<tr>" +
-                        "<td><input type='hidden' id='r_tid' name='res_user_id'></td>"+
+                        "<td><input type='hidden' name='res_user_id' id='res_user_id'></td>"+
                         "<td colspan='3' align='center' ><input type='submit' value='提交'></td>" +
                     "</tr>" +
                     "</table></form>"
                 )
+                $("#res_user_id").val(res_user_id);
             })
         })
     </script>
@@ -79,6 +81,9 @@
 <body>
 欢迎您!<%out.print(user.getUser_name());%><br>
 <a href="backToUserLogin">返回用户登录</a><br/><a href="backToEnter">返回入口</a>
+
+<hr>
+<h2>面试通知</h2>
 <hr>
 <%
     List<HiringTable> hiringList = (List<HiringTable>) session.getAttribute("hiringList");
@@ -109,6 +114,7 @@
     if(resume==null){
 %>
 <a id="addResume">创建简历</a>
+<input type="hidden" name="userid<%=user.getUser_id()%>" value="<%=user.getUser_id()%>">
 <%--<input type="text" name="tid<%=user.getUser_id()%>" value="<%=user.getUser_id()%>">--%>
 <%
     }else {

@@ -16,12 +16,10 @@ public class ResumeController {
 
     @RequestMapping("addResume")
     public String addResume(Resume resume, HttpSession session)throws Exception{
-        User user = (User) session.getAttribute("user1");
-        System.out.println(user);
         System.out.println(resume);
-        resume.setRes_user_id(user.getUser_id());
         boolean b = resumeService.addResume(resume);
         System.out.println(resume);
+        session.setAttribute("resume",resume);
         return "success";
 
     }
