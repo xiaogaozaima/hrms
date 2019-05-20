@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 public class HiringController {
@@ -71,20 +72,25 @@ public class HiringController {
 
     @RequestMapping("addHiring")
     public String addHiring(HttpServletRequest request,HttpSession session)throws Exception{
-        String dept_name = request.getParameter("dept_name");
-        String pos_name = request.getParameter("pos_name");
+        Integer dept_id = Integer.parseInt(request.getParameter("dept_id"));
+        Integer pos_id = Integer.parseInt(request.getParameter("pos_id"));
         String hir_disc = request.getParameter("hir_disc");
 
-        Department d = departmentService.getDeptByName(dept_name);
-        Position p = positionService.getPositionByName(pos_name);
+        Department d = departmentService.getDeptId(dept_id);
+        Position p = positionService.getPositionById(pos_id);
 
+        System.out.println(d);
+        System.out.println(p);
         HiringTable hiringTable = new HiringTable();
         hiringTable.setHir_dept_id(d.getDept_id());
         hiringTable.setHir_pos_id(p.getPos_id());
         hiringTable.setHir_disc(hir_disc);
 
+        System.out.println(hiringTable);
         boolean b = hiringService.addHiring(hiringTable);
         if(b){
+            List<HiringTable> list = hiringService.getAllHiring();
+            session.setAttribute("hiringTables",list);
             return "adminPage";
         }
         return "error";

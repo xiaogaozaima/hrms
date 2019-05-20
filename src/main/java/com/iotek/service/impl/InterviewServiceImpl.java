@@ -23,4 +23,11 @@ public class InterviewServiceImpl implements InterviewService {
     public List<Interview> getAllInterview() {
         return interviewDao.getAllInterview();
     }
+
+    public Interview getInterviewById(Integer int_id) {
+        if(int_id!=null){
+            return interviewDao.getInterviewById(int_id);
+        }
+        return null;
+    }
 }

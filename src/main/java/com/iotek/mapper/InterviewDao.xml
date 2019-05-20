@@ -16,4 +16,7 @@
     <select id="getAllInterview" resultType="com.iotek.model.Interview">
         select * from HRM_INTERVIEW
     </select>
+    <select id="getInterviewById" resultType="com.iotek.model.Interview">
+        select * from HRM_INTERVIEW where INT_ID=#{int_id}
+    </select>
 </mapper>

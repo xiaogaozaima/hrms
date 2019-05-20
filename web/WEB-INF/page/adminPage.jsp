@@ -31,14 +31,14 @@
 <h2>发布简历</h2>
 <form action="addHiring" method="post">
     <table>
-        <tr><td>招聘部门：</td><td><input type="text" name="dept_name"></td></tr>
-        <tr><td>招聘职位：</td><td><input type="text" name="pos_name"></td></tr>
-        <tr><td>招聘详情：</td><td><input type="text" hir_disc></td></tr>
+        <tr><td>招聘部门：</td><td><input type="text" name="dept_id"></td></tr>
+        <tr><td>招聘职位：</td><td><input type="text" name="pos_id"></td></tr>
+        <tr><td>招聘详情：</td><td><input type="text" name="hir_disc"></td></tr>
         <input type="submit" value="发布招聘信息">
     </table>
 </form>
 
-<h2>所有简历</h2>
+<h2>所有招聘</h2>
 <%
     List<HiringTable> hiringTables = (List<HiringTable>) session.getAttribute("hiringTables");
     if(hiringTables!=null){

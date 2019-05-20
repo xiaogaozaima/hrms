@@ -1,7 +1,8 @@
 <%@ page import="com.iotek.model.User" %>
 <%@ page import="com.iotek.model.Resume" %>
 <%@ page import="java.util.List" %>
-<%@ page import="com.iotek.model.HiringTable" %><%--
+<%@ page import="com.iotek.model.HiringTable" %>
+<%@ page import="com.iotek.model.Interview" %><%--
   Created by IntelliJ IDEA.
   User: xiaogao
   Date: 2019/5/15
@@ -84,9 +85,29 @@
 
 <hr>
 <h2>面试通知</h2>
+<%
+    List<Interview> interviewList = (List<Interview>) session.getAttribute("interviewList");
+%>
+<form action="" method="post">
+    <table>
+        <%
+            if(interviewList!=null){
+                for(Interview interview : interviewList){
+        %>
+        <tr><td><%=interview%></td></tr>
+                <%
+                }
+            }
+                %>
+
+    </table>
+</form>
+
 <hr>
+<h2>招聘信息</h2>
 <%
     List<HiringTable> hiringList = (List<HiringTable>) session.getAttribute("hiringList");
+
     if(hiringList==null){
 %>
 <h1>尚未发布招聘信息</h1>

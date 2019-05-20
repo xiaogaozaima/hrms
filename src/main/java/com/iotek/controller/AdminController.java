@@ -32,13 +32,15 @@ public class AdminController {
     @Resource
     private PositionService positionService;
 
+    /*管理员登录*/
     @RequestMapping("adminlogin")
     public String adminLogin(Admin admin, HttpSession session)throws Exception{
         Admin admin1 = adminService.login(admin);
         if(admin1!=null){
             session.setAttribute("ad",admin1);
-
+            /*全部简历投递信息*/
             List<Recruit> recruitList = recruitService.getAllRecruit();
+            /*全部面试信息*/
             List<Interview> interviewList = interviewService.getAllInterview();
             /*全部招聘信息*/
             List<HiringTable> hiringTables = hiringService.getAllHiring();
@@ -61,28 +63,37 @@ public class AdminController {
     @RequestMapping("beforeInterview")
     public String beforeInterview(HttpSession session, HttpServletRequest request)throws Exception{
         Integer res_id = Integer.parseInt(request.getParameter("method"));
-        System.out.println("简历的id："+res_id);
         Integer res_hir_id = Integer.parseInt(request.getParameter("method1"));
-        System.out.println("招聘的id："+res_hir_id);
         HiringTable hiring = hiringService.getHiringById(res_hir_id);
-        System.out.println("招聘信息："+hiring);
         Resume resume = resumeService.getResumeById(res_id);
-        System.out.println("简历："+resume);
+
+        Department d = departmentService.getDeptId(hiring.getHir_dept_id());
+        Position p = positionService.getPositionById(hiring.getHir_pos_id());
 
         User user = userService.getUserById(resume.getRes_user_id());
         session.setAttribute("resume",resume);
         session.setAttribute("hiring",hiring);
         session.setAttribute("user",user);
+        session.setAttribute("dept",d);
+        session.setAttribute("pos",p);
         return "AdminResumeDetail";
     }
 
     /*得到一个简历和一个招聘表id，安排面试*/
     @RequestMapping("addInterview")
     public String addInterview(Resume resume,HttpSession session,HttpServletRequest request)throws Exception{
+        Integer dept_id = Integer.parseInt(request.getParameter("dept_id"));
+        Integer pos_id = Integer.parseInt(request.getParameter("pos_id"));
         Interview interview = new Interview();
         interview.setInt_user_id(resume.getRes_user_id());
-        session.setAttribute("resume",resume);
+        interview.setInt_dept_id(dept_id);
+        interview.setInt_pos_id(pos_id);
+
         boolean b = interviewService.addInterview(interview);
+        System.out.println(interview);
+
+        session.setAttribute("resume",resume);
+        System.out.println(resume);
 
         /*通过request得到一条招聘信息*/
         Integer hiring_id = Integer.parseInt(request.getParameter("hiring_id"));
@@ -97,19 +108,20 @@ public class AdminController {
        if(b){
             List<Recruit> recruitList = recruitService.getAllRecruit();
             session.setAttribute("recruitList",recruitList);
-            /*String dept_name = departmentService.getDeptId(hiring.getHir_dept_id()).getDept_name();
-            String pos_name = positionService.getPositionById(hiring.getHir_pos_id()).getPos_name();
-            session.setAttribute("dept_name",dept_name);
-            session.setAttribute("pos_name",pos_name);*/
             session.setAttribute("user",user);
 
            return "adminPage";
         }
         return "error";
     }
+
+    /*录取即添加员工*/
     @RequestMapping("addStaff")
     public String addStaff(HttpServletRequest request,HttpSession session)throws Exception{
         Integer int_id = Integer.parseInt(request.getParameter("method"));
+        Interview i = interviewService.getInterviewById(int_id);
+        System.out.println(i);
+
         Integer user_id = Integer.parseInt(request.getParameter("method1"));
         User u = userService.getUserById(user_id);
         Staff staff = new Staff();
@@ -119,6 +131,7 @@ public class AdminController {
         if(b){
             List<Interview> interviewList = interviewService.getAllInterview();
             session.setAttribute("interviewList",interviewList);
+
             return "adminPage";
         }
         return "error";
