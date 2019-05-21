@@ -84,10 +84,13 @@ public class AdminController {
     public String addInterview(Resume resume,HttpSession session,HttpServletRequest request)throws Exception{
         Integer dept_id = Integer.parseInt(request.getParameter("dept_id"));
         Integer pos_id = Integer.parseInt(request.getParameter("pos_id"));
+        /*创建面试*/
         Interview interview = new Interview();
         interview.setInt_user_id(resume.getRes_user_id());
         interview.setInt_dept_id(dept_id);
         interview.setInt_pos_id(pos_id);
+        interview.setInt_address(request.getParameter("int_address"));
+        interview.setInt_time(request.getParameter("data"));
 
         boolean b = interviewService.addInterview(interview);
         System.out.println(interview);

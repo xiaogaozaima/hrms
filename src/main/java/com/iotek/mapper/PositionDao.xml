@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.iotek.dao.PositionDao">
     <insert id="addPosition">
-        insert into HRM_POSITION (POS_ID, POS_NAME, POS_DEPT_ID) values (#{pos_id},#{pos_name},#{pos_dept_id})
+        insert into HRM_POSITION (POS_ID, POS_NAME, POS_DEPT_ID)
+        values (POSITION_SEQ.nextval,#{pos_name},#{pos_dept_id})
     </insert>
     <update id="updatePosition">
         update HRM_POSITION set POS_NAME=#{pos_name}

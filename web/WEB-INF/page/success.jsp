@@ -118,11 +118,22 @@
 %>
 
 <table>
-        <tr><th>职位</th><th>薪资</th><th>福利</th><th>详情</th></tr>
+        <tr><th>hiringid</th><th>部门id</th><th>职位id</th><th>详情</th></tr>
 <%
         for(int i = 0;i<hiringList.size();i++){
 %>
-    <form action="showHiringDetail" method="post"><tr><td hidden><input type="text" name="hir_id" value="<%=hiringList.get(i).getHir_id()%>"><input type="text" name="user_id" value="<%=user.getUser_id()%>"></td><td><%=hiringList.get(i).getHir_pos_id()%></td><td><%="薪资还没加上去"%></td><td><%="福利还没加"%></td><td><input type="submit" value="详情"></td></tr></form>
+    <form action="showHiringDetail" method="post">
+        <tr>
+            <td hidden>
+                <input type="text" name="hir_id" value="<%=hiringList.get(i).getHir_id()%>">
+                <input type="text" name="user_id" value="<%=user.getUser_id()%>">
+            </td>
+            <td><%=hiringList.get(i).getHir_pos_id()%></td>
+            <td><%=hiringList.get(i).getHir_dept_id()%></td>
+            <td><%=hiringList.get(i).getHir_pos_id()%></td>
+            <td><input type="submit" value="详情"></td>
+        </tr>
+    </form>
 <%
         }
     }

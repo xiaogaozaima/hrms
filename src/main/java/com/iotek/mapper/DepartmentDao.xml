@@ -6,7 +6,7 @@
     </insert>
 
     <update id="updateDept">
-        update HRM_DEPARTMENT set DEPT_NAME=#{dept_name}
+        update HRM_DEPARTMENT set DEPT_NAME=#{dept_name} where DEPT_ID=#{dept_id}
     </update>
 
     <delete id="deleteDept">
