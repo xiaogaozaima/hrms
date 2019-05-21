@@ -11,6 +11,8 @@ public class Interview implements Serializable {
     private String int_address;
     private String int_contact;
     private String int_conphone;
+    private Integer int_state;
+    /*state: 0代表发送的面试；1代表用户同意的；2代表用户拒绝的；3代表已录用的*/
 
     public Integer getInt_id() {
         return int_id;
@@ -76,6 +78,14 @@ public class Interview implements Serializable {
         this.int_conphone = int_conphone;
     }
 
+    public Integer getInt_state() {
+        return int_state;
+    }
+
+    public void setInt_state(Integer int_state) {
+        this.int_state = int_state;
+    }
+
     @Override
     public String toString() {
         return "Interview{" +
@@ -87,6 +97,7 @@ public class Interview implements Serializable {
                 ", int_address='" + int_address + '\'' +
                 ", int_contact='" + int_contact + '\'' +
                 ", int_conphone='" + int_conphone + '\'' +
+                ", int_state=" + int_state +
                 '}';
     }
 }

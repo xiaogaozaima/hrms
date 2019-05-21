@@ -10,13 +10,28 @@
         #{int_contact},#{int_conphone})
     </insert>-->
     <insert id="addInterview">
-        insert  into HRM_INTERVIEW (INT_ID, INT_USER_ID)
-        values (INTERVIEW_SEQ.nextval,#{int_user_id})
+        insert  into HRM_INTERVIEW (
+        INT_ID, INT_USER_ID,INT_DEPT_ID,
+        INT_POS_ID,INT_ADDRESS,INT_CONTACT,
+        INT_CONPHONE,INT_STATE,INT_TIME)
+        values (
+        INTERVIEW_SEQ.nextval,#{int_user_id},#{int_dept_id},
+        #{int_pos_id},#{int_address},#{int_contact},
+        #{int_conphone},#{int_state},#{int_time})
     </insert>
+    <update id="updateInterview">
+        update HRM_INTERVIEW set INT_STATE=#{int_state} where INT_ID=#{int_id}
+    </update>
     <select id="getAllInterview" resultType="com.iotek.model.Interview">
         select * from HRM_INTERVIEW
     </select>
     <select id="getInterviewById" resultType="com.iotek.model.Interview">
         select * from HRM_INTERVIEW where INT_ID=#{int_id}
+    </select>
+    <select id="getInterviewByUid" resultType="com.iotek.model.Interview">
+        select * from HRM_INTERVIEW where INT_USER_ID=#{int_user_id}
+    </select>
+    <select id="getInterviewByState" resultType="com.iotek.model.Interview">
+        select * from HRM_INTERVIEW where INT_STATE=#{int_state}
     </select>
 </mapper>

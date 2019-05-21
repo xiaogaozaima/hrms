@@ -47,23 +47,47 @@ public class UserController {
         Resume resume = resumeService.getResumeByUid(user1);
         session.setAttribute("resume",resume);
 
-        /*招聘信息*/
+        /*所有招聘信息*/
         List<HiringTable> hiringList = hiringService.getAllHiring();
         session.setAttribute("hiringList",hiringList);
-        System.out.println("下面是投了简历的招聘表");
-        System.out.println(hiringList);
 
         /*面试信息*/
-        List<Interview> interviewList = interviewService.getAllInterview();
+        List<Interview> interviewList = interviewService.getInterviewByUid(user1.getUser_id());
         session.setAttribute("interviewList",interviewList);
-        System.out.println("下面是面试信息");
-        System.out.println(interviewList);
-
 
         return "success";
     }
 
 
+    /*同意面试*/
+    @RequestMapping("agreeInterview")
+    public String agreeInterview(HttpServletRequest request,HttpSession session)throws Exception{
+        Integer user_id = Integer.parseInt(request.getParameter("user_id"));
+        User u = userService.getUserById(user_id);
+        Integer int_id = Integer.parseInt(request.getParameter("method"));
+        Interview interview = interviewService.getInterviewById(int_id);
+        interview.setInt_state(1);
+        boolean b = interviewService.updateInterview(interview);
+        if(b){
+            List<Interview> interviewList = interviewService.getInterviewByUid(u.getUser_id());
+            session.setAttribute("interviewList",interviewList);
+            return "success";
+        }
+        return "error";
+    }
+
+    /*拒绝面试*/
+    @RequestMapping("refuseInterview")
+    public String refuseInterview(HttpServletRequest request)throws Exception{
+        Integer int_id = Integer.parseInt(request.getParameter("method"));
+        Interview interview = interviewService.getInterviewById(int_id);
+        interview.setInt_state(2);
+        boolean b = interviewService.updateInterview(interview);
+        if(b){
+            return "success";
+        }
+        return "error";
+    }
 
 
 

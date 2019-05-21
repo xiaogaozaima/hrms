@@ -13,4 +13,7 @@
     <select id="getAllRecruit" resultType="com.iotek.model.Recruit">
         select * from HRM_RECRUIT
     </select>
+    <select id="getRecruitByHirid" resultType="com.iotek.model.Recruit">
+        select * from HRM_RECRUIT where REC_HIR_ID=#{rec_hir_id}
+    </select>
 </mapper>

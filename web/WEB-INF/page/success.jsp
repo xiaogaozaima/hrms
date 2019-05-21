@@ -94,12 +94,20 @@
             if(interviewList!=null){
                 for(Interview interview : interviewList){
         %>
-        <tr><td><%=interview%></td></tr>
+        <tr>
+            <<input hidden type="text" name="user_id" value="<%=user.getUser_id()%>">
+            <td hidden><%=interview.getInt_id()%></td>
+            <td><%=interview.getInt_time()%></td>
+            <td><%=interview.getInt_address()%></td>
+            <td><%=interview.getInt_contact()%></td>
+            <td><%=interview.getInt_conphone()%></td>
+            <td><a href="agreeInterview?method=<%=interview.getInt_id()%>">同意面试</a></td>
+            <td><a href="refuseInterview?method=<%=interview.getInt_id()%>">拒绝面试</a></td>
+        </tr>
                 <%
                 }
             }
                 %>
-
     </table>
 </form>
 
@@ -112,7 +120,6 @@
 %>
 <h1>尚未发布招聘信息</h1>
 
-
 <%
     }else {
 %>
@@ -124,21 +131,20 @@
 %>
     <form action="showHiringDetail" method="post">
         <tr>
-            <td hidden>
-                <input type="text" name="hir_id" value="<%=hiringList.get(i).getHir_id()%>">
-                <input type="text" name="user_id" value="<%=user.getUser_id()%>">
-            </td>
+            <input hidden type="text" name="hir_id" value="<%=hiringList.get(i).getHir_id()%>">
+            <input hidden type="text" name="user_id" value="<%=user.getUser_id()%>">
             <td><%=hiringList.get(i).getHir_pos_id()%></td>
             <td><%=hiringList.get(i).getHir_dept_id()%></td>
             <td><%=hiringList.get(i).getHir_pos_id()%></td>
             <td><input type="submit" value="详情"></td>
         </tr>
     </form>
+</table>
 <%
         }
     }
 %>
-</table>
+
 <hr>
 <% Resume resume = (Resume) session.getAttribute("resume");%>
 

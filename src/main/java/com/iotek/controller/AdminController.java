@@ -40,19 +40,20 @@ public class AdminController {
             session.setAttribute("ad",admin1);
             /*全部简历投递信息*/
             List<Recruit> recruitList = recruitService.getAllRecruit();
-            /*全部面试信息*/
-            List<Interview> interviewList = interviewService.getAllInterview();
+
+            /*得到各种面试*/
+            List<Interview> interviews0 = interviewService.getInterviewByState(0);
+            List<Interview> interviews1 = interviewService.getInterviewByState(1);
+            List<Interview> interviews2 = interviewService.getInterviewByState(2);
+            List<Interview> interviews3 = interviewService.getInterviewByState(3);
+            session.setAttribute("interviews0",interviews0);
+            session.setAttribute("interviews1",interviews1);
+            session.setAttribute("interviews2",interviews2);
+            session.setAttribute("interviews3",interviews3);
             /*全部招聘信息*/
             List<HiringTable> hiringTables = hiringService.getAllHiring();
             session.setAttribute("hiringTables",hiringTables);
-            /*List<Resume> resumeList = new ArrayList<Resume>();
-            for(Recruit recruit : recruitList){
-                Resume resume = resumeService.getResumeById(recruit.getRec_res_id());
-                resumeList.add(resume);
-            }
-            session.setAttribute("resumeList",resumeList);*/
             session.setAttribute("recruitList",recruitList);
-            session.setAttribute("interviewList",interviewList);
             return "adminPage";
         }
         return "error";
@@ -90,7 +91,11 @@ public class AdminController {
         interview.setInt_dept_id(dept_id);
         interview.setInt_pos_id(pos_id);
         interview.setInt_address(request.getParameter("int_address"));
-        interview.setInt_time(request.getParameter("data"));
+        interview.setInt_time(request.getParameter("int_time"));
+        interview.setInt_contact(request.getParameter("int_contact"));
+        interview.setInt_conphone(request.getParameter("int_conphone"));
+        interview.setInt_state(0);
+        System.out.println(interview);
 
         boolean b = interviewService.addInterview(interview);
         System.out.println(interview);
@@ -101,18 +106,25 @@ public class AdminController {
         /*通过request得到一条招聘信息*/
         Integer hiring_id = Integer.parseInt(request.getParameter("hiring_id"));
         HiringTable hiring = hiringService.getHiringById(hiring_id);
-        System.out.println("通过request得到一条招聘信息"+hiring);
 
         /*通过request得到一个用户*/
         Integer user_id = Integer.parseInt(request.getParameter("user_id"));
         User user = userService.getUserById(user_id);
-        System.out.println("通过request得到一个用户"+user);
 
        if(b){
             List<Recruit> recruitList = recruitService.getAllRecruit();
             session.setAttribute("recruitList",recruitList);
             session.setAttribute("user",user);
 
+            /*得到各种面试*/
+            List<Interview> interviews0 = interviewService.getInterviewByState(0);
+            List<Interview> interviews1 = interviewService.getInterviewByState(1);
+            List<Interview> interviews2 = interviewService.getInterviewByState(2);
+            List<Interview> interviews3 = interviewService.getInterviewByState(3);
+            session.setAttribute("interviews0",interviews0);
+            session.setAttribute("interviews1",interviews1);
+            session.setAttribute("interviews2",interviews2);
+            session.setAttribute("interviews3",interviews3);
            return "adminPage";
         }
         return "error";
@@ -121,23 +133,67 @@ public class AdminController {
     /*录取即添加员工*/
     @RequestMapping("addStaff")
     public String addStaff(HttpServletRequest request,HttpSession session)throws Exception{
+        //获得面试信息
         Integer int_id = Integer.parseInt(request.getParameter("method"));
         Interview i = interviewService.getInterviewById(int_id);
         System.out.println(i);
+        i.setInt_state(3);
+        boolean b1 = interviewService.updateInterview(i);
+        System.out.println(i);
 
+        //获得用户信息
         Integer user_id = Integer.parseInt(request.getParameter("method1"));
         User u = userService.getUserById(user_id);
+
+        //创建新员工
         Staff staff = new Staff();
         staff.setStaff_name(u.getUser_name()+"hrm");
         staff.setStaff_password("a123456");
+        staff.setStaff_dept_id(i.getInt_dept_id());
+        staff.setStaff_pos_id(i.getInt_pos_id());
         boolean b = staffService.addStaff(staff);
-        if(b){
-            List<Interview> interviewList = interviewService.getAllInterview();
-            session.setAttribute("interviewList",interviewList);
+        if(b && b1){
+            List<Interview> interviewList = interviewService.getInterviewByState(1);
+            session.setAttribute("interviews1",interviewList);
 
             return "adminPage";
         }
         return "error";
 
+    }
+
+    /*收到的简历*/
+    @RequestMapping("receivedResume")
+    public String receivedResume(HttpSession session,HttpServletRequest request)throws Exception{
+        /*招聘信息*/
+        Integer hir_id = Integer.parseInt(request.getParameter("hir_id"));
+        HiringTable hiring = hiringService.getHiringById(hir_id);
+        session.setAttribute("hiring",hiring);
+
+        /*招聘部门*/
+        Integer dept_id = Integer.parseInt(request.getParameter("dept_id"));
+        Department d = departmentService.getDeptId(dept_id);
+        session.setAttribute("dept",d);
+
+        /*招聘职位*/
+        Integer pos_id = Integer.parseInt(request.getParameter("pos_id"));
+        Position p = positionService.getPositionById(pos_id);
+        session.setAttribute("pos",p);
+
+        /*投递的简历*/
+        List<Recruit> recruits = recruitService.getRecruitByHirid(hir_id);
+        session.setAttribute("recruits",recruits);
+        List<Resume> resumes = new ArrayList<Resume>();
+        if(recruits!=null){
+            for(Recruit r : recruits){
+                Resume res = resumeService.getResumeById(r.getRec_res_id());
+                resumes.add(res);
+            }
+        }
+        System.out.println(resumes);
+        session.setAttribute("resumes",resumes);
+
+
+        return "receivedResume";
     }
 }

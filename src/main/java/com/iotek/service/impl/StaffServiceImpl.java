@@ -24,4 +24,11 @@ public class StaffServiceImpl implements StaffService {
         }
         return false;
     }
+
+    public Staff stafflogin(Staff staff) {
+        if(staff!=null){
+            return staffDao.getStaff(staff);
+        }
+        return null;
+    }
 }

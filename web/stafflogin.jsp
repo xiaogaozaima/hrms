@@ -28,8 +28,8 @@
 <fieldset>
     <legend>员工登录</legend>
     <form action="stafflogin" method="post">
-        账户：<input type="text" name="user_name" required><br/>
-        密码：<input type="text" name="user_password" required><br/>
+        账户：<input type="text" name="staff_name" required><br/>
+        密码：<input type="text" name="staff_password" required><br/>
         <input type="submit" value="登录"><br/>
     </form>
 </fieldset>

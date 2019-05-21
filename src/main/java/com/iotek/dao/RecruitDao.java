@@ -10,4 +10,5 @@ public interface RecruitDao {
     boolean deleteRecruit(Recruit recruit);
     Recruit getRecruitByResId(@Param("rec_res_id") Integer rec_res_id, @Param("hiring") Integer hiring);
     List<Recruit> getAllRecruit();
+    List<Recruit> getRecruitByHirid(@Param("rec_hir_id")Integer rec_hir_id);
 }

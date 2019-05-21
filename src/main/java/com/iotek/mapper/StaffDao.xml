@@ -9,8 +9,8 @@
         #{staff_dept_id},#{staff_pos_id})
     </insert>-->
     <insert id="addStaff">
-        insert  into HRM_STAFF (STAFF_ID, STAFF_NAME, STAFF_PASSWORD)
-        values (STAFF_SEQ.nextval,#{staff_name},#{staff_password})
+        insert  into HRM_STAFF (STAFF_ID, STAFF_NAME, STAFF_PASSWORD,STAFF_DEPT_ID,STAFF_POS_ID)
+        values (STAFF_SEQ.nextval,#{staff_name},#{staff_password},#{staff_dept_id},#{staff_pos_id})
     </insert>
     <select id="getStaff" resultType="com.iotek.model.Staff">
         select * from HRM_STAFF where STAFF_NAME=#{staff_name} and STAFF_PASSWORD=#{staff_password}

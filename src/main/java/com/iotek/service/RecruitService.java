@@ -9,4 +9,6 @@ public interface RecruitService {
     boolean deleteRecruit(Recruit recruit);
     Recruit getRecruitByResId(Integer rec_res_id,Integer hiring);
     List<Recruit> getAllRecruit();
+    List<Recruit> getRecruitByHirid(Integer rec_hir_id);
+
 }

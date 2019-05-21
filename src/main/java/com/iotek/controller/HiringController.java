@@ -30,15 +30,25 @@ public class HiringController {
     /*查看招聘表所有记录*/
     @RequestMapping("showHiringDetail")
     public String showHiringDetail(HttpServletRequest request, HttpSession session)throws Exception{
-        Integer hir_id = Integer.parseInt(request.getParameter("hir_id"));
+//      /*得到用户*/
         Integer user_id = Integer.parseInt(request.getParameter("user_id"));
         User user = userService.getUserById(user_id);
         session.setAttribute("user",user);
+
+        /*得到招聘hiring*/
+        Integer hir_id = Integer.parseInt(request.getParameter("hir_id"));
         HiringTable hiring = hiringService.getHiringById(hir_id);
         System.out.println("hiring"+hiring);
         session.setAttribute("hiringTable",hiring);
-        System.out.println("hir_id="+hir_id);
-        //return "test";
+
+        /*得到部门*/
+        Department d = departmentService.getDeptId(hiring.getHir_dept_id());
+        session.setAttribute("dept",d);
+
+        /*得到职位*/
+        Position p = positionService.getPositionById(hiring.getHir_pos_id());
+        session.setAttribute("pos",p);
+
         return "hiringDetail";
     }
 

@@ -20,7 +20,7 @@
 <%
     Admin admin = (Admin) session.getAttribute("ad");
     List<Recruit> recruitList = (List<Recruit>) session.getAttribute("recruitList");
-    List<Interview> interviewList = (List<Interview>) session.getAttribute("interviewList");
+
     //List<Resume> resumeList = (List<Resume>) session.getAttribute("resumeList");
 %>
 欢迎<%=admin.getAdmin_name()%><br/>
@@ -39,65 +39,139 @@
 </form>
 
 <h2>所有招聘</h2>
+<table>
 <%
     List<HiringTable> hiringTables = (List<HiringTable>) session.getAttribute("hiringTables");
     if(hiringTables!=null){
+        %><tr><th>Hir_id</th><th>Hir_dept_id</th><th>Hir_pos_id</th></tr>
+    <%
         for(HiringTable h : hiringTables){
 %>
-<h5>
-<%=h%>
-</h5><br/>
+            <tr>
+                <td><%=h.getHir_id()%></td>
+                <td><%=h.getHir_dept_id()%></td>
+                <td><%=h.getHir_pos_id()%></td>
+                <td><a href="receivedResume?hir_id=<%=h.getHir_id()%>&dept_id=<%=h.getHir_dept_id()%>&pos_id=<%=h.getHir_pos_id()%>">详情</a></td>
+            </tr>
 <%
         }
     }
 %>
+</table>
 <hr>
-<h2>接收的简历</h2>
-<table>
+
+
+<h1>面试相关</h1>
+<hr>
+<%
+    List<Interview> interviews0 = (List<Interview>) session.getAttribute("interviews0");
+    List<Interview> interviews1 = (List<Interview>) session.getAttribute("interviews1");
+    List<Interview> interviews2 = (List<Interview>) session.getAttribute("interviews2");
+    List<Interview> interviews3 = (List<Interview>) session.getAttribute("interviews3");
+%>
+<h3>发送面试</h3>
+<table border="1">
     <%
-        if(recruitList!=null){
+        if(interviews0!=null){
     %>
-    <tr><th>编号</th><th>招聘ID</th><th>简历ID</th><th>简历详情</th></tr>
-        <%
-            for(Recruit recruit : recruitList){
-        %>
+    <th>面试id</th><th>用户id</th><th>部门id</th><th>职位id</th><th>面试时间</th><th>面试地址</th><th>联系人</th><th>联系人电话</th>
 
+    <%
+        for(Interview interview : interviews0){
+    %>
+    <tr>
+        <td><%=interview.getInt_id()%></td>
+        <td><%=interview.getInt_user_id()%></td>
+        <td><%=interview.getInt_dept_id()%></td>
+        <td><%=interview.getInt_pos_id()%></td>
+        <td><%=interview.getInt_time()%></td>
+        <td><%=interview.getInt_address()%></td>
+        <td><%=interview.getInt_contact()%></td>
+        <td><%=interview.getInt_conphone()%></td>
+    </tr>
+    <%
+            }
+        }
 
-<%--
-    <tr><td><%=recruit.getRec_id()%></td><td><%=recruit.getRec_hir_id()%></td><%=recruit.getRec_res_id()%><td><a>简历详情</a></td></tr>
---%>
+    %>
+</table>
+<hr>
+<h3>同意面试</h3>
+<table border="1">
+<%
+    if(interviews1!=null){
+%>
+    <th>面试id</th><th>用户id</th><th>部门id</th><th>职位id</th><th>面试时间</th><th>面试地址</th><th>联系人</th><th>联系人电话</th>
+<%
+        for(Interview interview : interviews1){
+%>
+            <tr>
+                <td><%=interview.getInt_id()%></td>
+                <td><%=interview.getInt_user_id()%></td>
+                <td><%=interview.getInt_dept_id()%></td>
+                <td><%=interview.getInt_pos_id()%></td>
+                <td><%=interview.getInt_time()%></td>
+                <td><%=interview.getInt_address()%></td>
+                <td><%=interview.getInt_contact()%></td>
+                <td><%=interview.getInt_conphone()%></td>
+                <td><a href="addStaff?method=<%=interview.getInt_id()%>&method1=<%=interview.getInt_user_id()%>">录用</a></td>
+                <td><a href="refuseInterview?method=<%=interview.getInt_id()%>&method1=<%=interview.getInt_user_id()%>">拒绝</a></td>
+            </tr>
+<%
+        }
+    }
 
+%>
+</table>
+<hr>
+<h3>拒绝面试</h3>
+<table border="1">
+    <%
+        if(interviews2!=null){
+    %>
+    <th>面试id</th><th>用户id</th><th>部门id</th><th>职位id</th><th>面试时间</th><th>面试地址</th><th>联系人</th><th>联系人电话</th>
+    <%
+        for(Interview interview : interviews2){
+    %>
+    <tr>
+        <td><%=interview.getInt_id()%></td>
+        <td><%=interview.getInt_user_id()%></td>
+        <td><%=interview.getInt_dept_id()%></td>
+        <td><%=interview.getInt_pos_id()%></td>
+        <td><%=interview.getInt_time()%></td>
+        <td><%=interview.getInt_address()%></td>
+        <td><%=interview.getInt_contact()%></td>
+        <td><%=interview.getInt_conphone()%></td>
+    </tr>
+    <%
+            }
+        }
 
-
-
-    <tr><td><%=recruit.getRec_id()%></td><td><%=recruit.getRec_hir_id()%></td><td><%=recruit.getRec_res_id()%></td><td><a href="beforeInterview?method=<%=recruit.getRec_res_id()%>&method1=<%=recruit.getRec_hir_id()%>">简历详情</a></td></tr>
-
-
-
+    %>
+</table>
+<h3>已录用面试</h3>
+<table border="1">
+    <%
+        if(interviews3!=null){
+    %>
+    <th>面试id</th><th>用户id</th><th>部门id</th><th>职位id</th><th>面试时间</th><th>面试地址</th><th>联系人</th><th>联系人电话</th>
+    <%
+        for(Interview interview : interviews3){
+    %>
+    <tr>
+        <td><%=interview.getInt_id()%></td>
+        <td><%=interview.getInt_user_id()%></td>
+        <td><%=interview.getInt_dept_id()%></td>
+        <td><%=interview.getInt_pos_id()%></td>
+        <td><%=interview.getInt_time()%></td>
+        <td><%=interview.getInt_address()%></td>
+        <td><%=interview.getInt_contact()%></td>
+        <td><%=interview.getInt_conphone()%></td>
+    </tr>
     <%
             }
         }
     %>
-
-</table>
-
-<hr>
-
-<h1>面试</h1>
-<table>
-<%
-    if(interviewList!=null){
-%>
-    <th>面试id</th><th>用户id</th><th>录用</th><th>拒绝</th>
-<%
-        for(Interview interview : interviewList){
-%>
-            <tr><td><%=interview.getInt_id()%></td><td><%=interview.getInt_user_id()%></td><td><a href="addStaff?method=<%=interview.getInt_id()%>&method1=<%=interview.getInt_user_id()%>">录用</a></td><td>拒绝</td></tr>
-<%
-        }
-    }
-
-%>
 </table>
 </body>
 </html>
