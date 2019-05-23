@@ -80,6 +80,7 @@ public class HiringController {
         return "error";
     }
 
+    /*发布招聘*/
     @RequestMapping("addHiring")
     public String addHiring(HttpServletRequest request,HttpSession session)throws Exception{
         Integer dept_id = Integer.parseInt(request.getParameter("dept_id"));

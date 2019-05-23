@@ -15,5 +15,11 @@
     <select id="getStaff" resultType="com.iotek.model.Staff">
         select * from HRM_STAFF where STAFF_NAME=#{staff_name} and STAFF_PASSWORD=#{staff_password}
     </select>
+    <select id="getStaffById" resultType="com.iotek.model.Staff">
+        select * from HRM_STAFF where STAFF_ID=#{staff_id}
+    </select>
+    <select id="getAllStaff" resultType="com.iotek.model.Staff">
+        select * from HRM_STAFF
+    </select>
 </mapper>
 

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.iotek.model.*" %><%--
   Created by IntelliJ IDEA.
@@ -15,6 +16,9 @@
 <head>
     <base href="<%=basePath%>"/>
     <title>adminPage</title>
+
+
+
 </head>
 <body>
 <%
@@ -28,6 +32,39 @@
 <hr>
 <a href="toAddDeptPos">添加部门。职位</a>
 <hr>
+发布培训<br>
+<form action="addTrain" method="post">
+    培训时间：<input type="datetime-local" name="tra_date">
+    培训地点：<input type="text" name="tra_address">
+    培训内容：<input type="text" name="tra_detail">
+    <input type="submit" value="创建培训">
+</form>
+<hr>
+<hr>
+<hr>
+员工考勤记录<br>
+<form action="adminCheAndRap" method="post">
+    选择员工：
+    <select id="allStaff" name="allStaff">
+        <c:forEach items="${sessionScope.allStaff}" var="as">
+            <option name="staff_id" value="${as.staff_id}">${as.staff_name}</option>
+        </c:forEach>
+    </select>
+    <br>
+    选择年月：
+    <select id="ym" name="ym" >
+        <c:if test="${sessionScope.ymlist!=null}">
+            <c:forEach items="${sessionScope.ymlist}" var="ym">
+                <option value="${ym}">${ym}</option>
+            </c:forEach>
+        </c:if>
+        <c:if test="${sessionScope.ymlist==null}">
+            <option value="没有记录">没有记录</option>
+        </c:if>
+    </select><br>
+    <input type="submit" value="查看员工的考勤记录">
+</form>
+<hr>
 <h2>发布简历</h2>
 <form action="addHiring" method="post">
     <table>
@@ -39,7 +76,7 @@
 </form>
 
 <h2>所有招聘</h2>
-<table>
+<table border="1">
 <%
     List<HiringTable> hiringTables = (List<HiringTable>) session.getAttribute("hiringTables");
     if(hiringTables!=null){
@@ -59,8 +96,6 @@
 %>
 </table>
 <hr>
-
-
 <h1>面试相关</h1>
 <hr>
 <%

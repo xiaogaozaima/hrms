@@ -95,14 +95,14 @@
                 for(Interview interview : interviewList){
         %>
         <tr>
-            <<input hidden type="text" name="user_id" value="<%=user.getUser_id()%>">
+            <input hidden type="text" name="user_id" value="<%=user.getUser_id()%>">
             <td hidden><%=interview.getInt_id()%></td>
             <td><%=interview.getInt_time()%></td>
             <td><%=interview.getInt_address()%></td>
             <td><%=interview.getInt_contact()%></td>
             <td><%=interview.getInt_conphone()%></td>
-            <td><a href="agreeInterview?method=<%=interview.getInt_id()%>">同意面试</a></td>
-            <td><a href="refuseInterview?method=<%=interview.getInt_id()%>">拒绝面试</a></td>
+            <td><a href="agreeInterview?method=<%=interview.getInt_id()%>&user_id=<%=user.getUser_id()%>">同意面试</a></td>
+            <td><a href="refuseInterview?method=<%=interview.getInt_id()%>&user_id=<%=user.getUser_id()%>">拒绝面试</a></td>
         </tr>
                 <%
                 }

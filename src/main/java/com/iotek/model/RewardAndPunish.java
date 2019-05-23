@@ -7,6 +7,8 @@ public class RewardAndPunish implements Serializable {
     private Integer rap_staff_id;
     private String rap_detail;
     private Double rap_money;
+    private Integer rap_che_id;
+    private String rap_ym;
 
     public Integer getRap_id() {
         return rap_id;
@@ -40,6 +42,22 @@ public class RewardAndPunish implements Serializable {
         this.rap_money = rap_money;
     }
 
+    public Integer getRap_che_id() {
+        return rap_che_id;
+    }
+
+    public void setRap_che_id(Integer rap_che_id) {
+        this.rap_che_id = rap_che_id;
+    }
+
+    public String getRap_ym() {
+        return rap_ym;
+    }
+
+    public void setRap_ym(String rap_ym) {
+        this.rap_ym = rap_ym;
+    }
+
     @Override
     public String toString() {
         return "RewardAndPunish{" +
@@ -47,6 +65,8 @@ public class RewardAndPunish implements Serializable {
                 ", rap_staff_id=" + rap_staff_id +
                 ", rap_detail='" + rap_detail + '\'' +
                 ", rap_money=" + rap_money +
+                ", rap_che_id=" + rap_che_id +
+                ", rap_ym='" + rap_ym + '\'' +
                 '}';
     }
 }

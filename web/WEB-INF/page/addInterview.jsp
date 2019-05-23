@@ -25,7 +25,8 @@
     String pos_name = (String) session.getAttribute("pos_name");
     User user = (User) session.getAttribute("user");
 %>
-
+<a href="backToEnter">返回入口</a>
+<hr>
 <form action="addInterview" method="post">
     <table>
         <tr>面试通知</tr>

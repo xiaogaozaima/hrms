@@ -31,6 +31,12 @@ public class AdminController {
     private DepartmentService departmentService;
     @Resource
     private PositionService positionService;
+    @Resource
+    private RAndPService rAndPService;
+    @Resource
+    private CheckService checkService;
+    @Resource
+    private TrainService trainService;
 
     /*管理员登录*/
     @RequestMapping("adminlogin")
@@ -40,6 +46,19 @@ public class AdminController {
             session.setAttribute("ad",admin1);
             /*全部简历投递信息*/
             List<Recruit> recruitList = recruitService.getAllRecruit();
+
+            /*选择员工查询考勤和奖惩*/
+            List<Staff> allStaff = staffService.getAllStaff();
+            session.setAttribute("allStaff",allStaff);
+
+            /*查出员工考勤过的年月*//*
+            List<String> ymlist = rAndPService.getRAndPYm(staff_id);
+            session.setAttribute("ymlist",ymlist);
+            return "staffCheckWork";*/
+
+            /*查出所有的打卡的年月*/
+            List<String> ymlist = checkService.getCheckByYm();
+            session.setAttribute("ymlist",ymlist);
 
             /*得到各种面试*/
             List<Interview> interviews0 = interviewService.getInterviewByState(0);
@@ -196,4 +215,44 @@ public class AdminController {
 
         return "receivedResume";
     }
+
+    @RequestMapping("adminCheAndRap")
+    public String adminCheAndRap(HttpServletRequest request,HttpSession session)throws Exception{
+        Integer staff_id = Integer.parseInt(request.getParameter("allStaff"));
+        Staff staff = staffService.getStaffById(staff_id);
+        session.setAttribute("staff",staff);
+        String ym = request.getParameter("ym");
+
+        /*通过员工id和年月查出考勤记录*/
+        List<CheckWork> checkWorks = checkService.getCheckBySidYm(staff_id,ym);
+        System.out.println(checkWorks);
+        session.setAttribute("checkWorks",checkWorks);
+
+        /*通过员工id和年月查奖惩表*/
+        List<RewardAndPunish> raps = rAndPService.getRAndPByStaffIdYm(staff_id,ym);
+        Double total = 0.0;
+        for(RewardAndPunish r : raps){
+            total+=r.getRap_money();
+        }
+        System.out.println(raps);
+        session.setAttribute("raps",raps);
+        session.setAttribute("total",total);
+
+        return "adminCheAndRap";
+    }
+
+
+    @RequestMapping("addTrain")
+    public String addTrain(Train train,HttpSession session)throws Exception{
+        System.out.println(train);
+        train.setTra_state(0);
+        boolean b = trainService.addTrain(train);
+        if(b){
+            session.setAttribute("train",train);
+        }
+        return "train";
+    }
+
+
 }
+

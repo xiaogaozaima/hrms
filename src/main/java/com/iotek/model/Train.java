@@ -7,7 +7,7 @@ public class Train implements Serializable {
     private String tra_date;
     private String tra_address;
     private Integer tra_state;
-    private String tra_end_date;
+    private String tra_detail;
 
     public Integer getTra_id() {
         return tra_id;
@@ -41,12 +41,12 @@ public class Train implements Serializable {
         this.tra_state = tra_state;
     }
 
-    public String getTra_end_date() {
-        return tra_end_date;
+    public String getTra_detail() {
+        return tra_detail;
     }
 
-    public void setTra_end_date(String tra_end_date) {
-        this.tra_end_date = tra_end_date;
+    public void setTra_detail(String tra_detail) {
+        this.tra_detail = tra_detail;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class Train implements Serializable {
                 ", tra_date='" + tra_date + '\'' +
                 ", tra_address='" + tra_address + '\'' +
                 ", tra_state=" + tra_state +
-                ", tra_end_date='" + tra_end_date + '\'' +
+                ", tra_detail='" + tra_detail + '\'' +
                 '}';
     }
 }

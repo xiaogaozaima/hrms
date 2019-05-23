@@ -19,6 +19,9 @@
     <title>Title</title>
 </head>
 <body>
+<a href="backToEnter">返回入口</a>
+<hr>
+
 <%
     HiringTable hiringTable = (HiringTable) session.getAttribute("hiringTable");
     User user = (User) session.getAttribute("user");
